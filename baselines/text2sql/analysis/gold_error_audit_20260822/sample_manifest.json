@@ -1,0 +1,32 @@
+{
+  "seed": 20260822,
+  "n_cases_all_frameworks": 1203,
+  "frameworks": [
+    "04_din_sql",
+    "06_mac_sql",
+    "20_c3sql",
+    "21_dail_sql"
+  ],
+  "stratum_population": {
+    "A_all_wrong_agree": 176,
+    "B_all_wrong_diverge": 116,
+    "C_mixed": 416,
+    "D_all_correct": 495
+  },
+  "stratum_sampled": {
+    "A_all_wrong_agree": 30,
+    "B_all_wrong_diverge": 25,
+    "C_mixed": 20,
+    "D_all_correct": 25
+  },
+  "outputs": {
+    "sheet": "baselines/text2sql/analysis/gold_error_audit_20260822\\audit_sheet.csv",
+    "detail": "baselines/text2sql/analysis/gold_error_audit_20260822\\audit_cases.jsonl"
+  },
+  "sources": {
+    "04_din_sql": "baselines/text2sql/04_din_sql/results/smoke_sparc_adapted_api_n1203_history/predictions.jsonl",
+    "06_mac_sql": "baselines/text2sql/06_mac_sql/results/smoke_sparc_adapted_api_n1203_history/predictions.jsonl",
+    "20_c3sql": "baselines/text2sql/20_c3sql/results/smoke_sparc_adapted_api_n1203_c3_dail_history_full/predictions.jsonl",
+    "21_dail_sql": "baselines/text2sql/21_dail_sql/results/smoke_sparc_adapted_api_n1203_c3_dail_history_full/predictions.jsonl"
+  }
+}

@@ -1,0 +1,70 @@
+.env
+.env.*
+!.env.example
+
+# BIRD-CRITIC ground truth: sol_sql + test_cases đuoc BIRD giu kin de chong leakage.
+# Nhan qua email auto-reply, KHONG commit va KHONG redistribute.
+bird_critic_tc_gt_*.zip
+**/BIRD-Critic-sol/
+datasets/text2sql/bird_critic/gt/
+*_sol.zip
+# data/ cua 23_bird_critic chua ban merge (public + sol_sql + test_cases)
+baselines/text2sql/23_bird_critic/data/
+baselines/text2sql/23_bird_critic/.venv/
+baselines/text2sql/23_bird_critic/code/
+
+
+# ============================================================
+# 2026-09-10 — repo chi track NOTE + TAI LIEU
+# Quyet dinh: code adapter, dataset va raw run output khong commit.
+# Ly do: dung luong (587 MB jsonl, datasets hang GB), upstream co repo rieng
+# (7 thu muc .git long nhau), va dataset co license redistribution rieng.
+# ============================================================
+
+# Dataset — nguon ngoai, co .git long nhau, license rieng
+datasets/
+
+# Code upstream da clone — moi baseline co repo goc rieng
+baselines/text2sql/*/code/
+baselines/text2sql/*/server_bundle/
+
+# Raw run output — 587 MB, immutable theo CLAUDE.md nhung khong thuoc git
+baselines/text2sql/*/results/
+baselines/text2sql/*/logs/
+baselines/text2sql/*/data/
+baselines/text2sql/llm_runs/
+baselines/text2sql/smoke_runs/
+baselines/text2sql/evaluation/
+*.jsonl
+*.sqlite
+*.db
+
+# Thu muc long sai do script chay sai cwd (xem CLAUDE.md)
+baselines/text2sql/baselines/
+
+# ------------------------------------------------------------
+# PDF CO BAN QUYEN — repo nay PUBLIC
+# paper/ chua PDF tu Elsevier (1-s2.0-*), ACM (3802035), AAAI...
+# extracted_text/ la full text trich tu chinh cac PDF do.
+# KHONG redistribute cong khai. Giu local; neu chuyen repo sang private
+# thi xem xet lai.
+# ------------------------------------------------------------
+paper/
+extracted_text/
+
+# Binary lon
+slides/
+*.pptx
+*.bak
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Claude Code local settings (co the chua duong dan may ca nhan)
+.claude/settings.local.json
+
+# Thu muc long sai thu hai (script chay sai cwd)
+baselines/text2sql/analysis/baselines/

@@ -122,9 +122,9 @@ if __name__ == "__main__":
         os.system(
             'python -u test_suite_sql_eval/evaluation.py ' +
             '--gold ./data/sft_data_collections/spider/dev_gold.sql ' +
-            '--pred ' + pred_file +
+            '--pred ' + pred_file + ' ' +
             ' --db ./data/sft_data_collections/spider/database ' +
-            '--table ./data/sft_data_collections/spider/tables.json' +
+            '--table ./data/sft_data_collections/spider/tables.json ' +
             '--etype all')
 
     elif "spider_test" in opt.dev_data_path:
@@ -136,9 +136,9 @@ if __name__ == "__main__":
         os.system(
             'python -u test_suite_sql_eval/evaluation.py ' +
             '--gold ./data/sft_data_collections/spider-test/test_data/dev_gold.sql ' +
-            '--pred ' + pred_file +
+            '--pred ' + pred_file + ' ' +
             ' --db ./data/sft_data_collections/spider-test/test_database ' +
-            '--table ./data/sft_data_collections/spider-test/test_data/tables.json' +
+            '--table ./data/sft_data_collections/spider-test/test_data/tables.json ' +
             '--etype all')
 
     elif "spider_dk" in opt.dev_data_path:
@@ -149,7 +149,7 @@ if __name__ == "__main__":
         os.system(
             'python -u test_suite_sql_eval/evaluation.py ' +
             '--gold ./data/sft_data_collections/Spider-DK/dk_gold.sql ' +
-            '--pred ' + pred_file +
+            '--pred ' + pred_file + ' ' +
             '--db ./data/sft_data_collections/spider/database ' +
             '--etype exec')
 
@@ -162,9 +162,9 @@ if __name__ == "__main__":
         os.system(
             'python -u test_suite_sql_eval/evaluation.py ' +
             '--gold ./data/sft_data_collections/spider-realistic/realistic_gold.sql ' +
-            '--pred ' + pred_file +
+            '--pred ' + pred_file + ' ' +
             '--db ./data/sft_data_collections/spider/database ' +
-            '--table ./data/sft_data_collections/spider/tables.json' +
+            '--table ./data/sft_data_collections/spider/tables.json ' +
             '--etype all')
 
 
@@ -176,8 +176,8 @@ if __name__ == "__main__":
         os.system(
             'python -u test_suite_sql_eval/evaluation.py ' +
             '--gold ./data/sft_data_collections/Spider-Syn/Spider-Syn/syn_dev_gold.sql ' +
-            '--pred ' + pred_file +
+            '--pred ' + pred_file + ' ' +
             '--db ./data/sft_data_collections/spider/database ' +
-            '--table ./data/sft_data_collections/spider/tables.json' +
+            '--table ./data/sft_data_collections/spider/tables.json ' +
             '--etype all')
 

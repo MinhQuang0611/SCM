@@ -1,0 +1,16 @@
+# The evaluation image ships the MariaDB client (11.8), not MySQL's. MySQL 8.4
+# presents a self-signed certificate by default, and the MariaDB client verifies
+# the chain, so every connection dies with:
+#   ERROR 2026 (HY000): TLS/SSL error: self-signed certificate in certificate chain
+#
+# Both servers sit on the private compose network with no traffic leaving the
+# host, so plaintext is fine here. Disabling TLS client-side avoids patching
+# code/evaluation/src/mysql_utils.py, which builds mysql/mysqldump argv by hand.
+[client]
+skip-ssl
+
+[mysql]
+skip-ssl
+
+[mysqldump]
+skip-ssl
