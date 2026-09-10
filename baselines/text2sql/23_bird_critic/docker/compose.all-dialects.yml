@@ -1,0 +1,84 @@
+# Override that re-enables the three dialect services the upstream
+# docker-compose.yml ships commented out (only mssql is active there).
+#
+# BIRD-CRITIC-1.0-Open spans four dialects, so all four servers are needed for
+# a complete Success Rate. Kept as an override rather than editing the cloned
+# repo, so code/ stays byte-identical to upstream.
+#
+# Usage from baselines/text2sql/23_bird_critic/:
+#   docker compose -f code/evaluation/docker-compose.yml \
+#                  -f docker/compose.all-dialects.yml up --build -d
+#
+# Relative paths resolve against the FIRST compose file's directory
+# (code/evaluation/), which is why ./env/... and ./*_table_dumps work here.
+
+services:
+  mssql:
+    # Upstream's entrypoint sleeps a fixed 15s before its first sqlcmd; SQL
+    # Server 2022 needs longer here on first boot, so `set -e` kills the
+    # container before any .bak is restored. Mount a copy that polls instead.
+    volumes:
+      - ../../docker/init-databases_mssql.sh:/usr/config/entrypoint.sh:ro
+
+  mysql:
+    build:
+      context: .
+      dockerfile: ./env/Dockerfile.mysql
+    container_name: bird_critic_mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: 123123
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./mysql_table_dumps:/docker-entrypoint-initdb.d/mysql_table_dumps
+    ports:
+      - "3306:3306"
+
+  postgresql:
+    build:
+      context: .
+      dockerfile: ./env/Dockerfile.postgresql
+    container_name: bird_critic_postgresql
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: 123123
+      TZ: "Asia/Hong_Kong"
+    volumes:
+      - postgresql_data:/var/lib/postgresql/data
+      - ./postgre_table_dumps:/docker-entrypoint-initdb.d/postgre_table_dumps
+    command:
+      - "-c"
+      - "max_connections=300"
+      - "-c"
+      - "shared_buffers=256MB"
+    ports:
+      - "5432:5432"
+
+  oracle:
+    build:
+      context: .
+      dockerfile: ./env/Dockerfile.oracle
+    container_name: oracle19
+    environment:
+      ORACLE_SID: ORCLCDB
+      ORACLE_PDB: ORCLPDB1
+      ORACLE_PWD: mypassword1
+    ports:
+      - "1521:1521"
+    volumes:
+      - oracle_data:/opt/oracle/oradata
+      - ./oracle_table_dumps:/oracle_table_dumps
+
+  so_eval_env:
+    depends_on:
+      - mysql
+      - postgresql
+      - mssql
+    volumes:
+      - ./oracle_table_dumps:/app/oracle_table_dumps
+      # MariaDB client vs MySQL 8.4 self-signed cert -- see the file's header.
+      - ../../docker/disable-mysql-ssl.cnf:/etc/mysql/conf.d/zz-disable-ssl.cnf:ro
+
+volumes:
+  mysql_data:
+  postgresql_data:
+  oracle_data:

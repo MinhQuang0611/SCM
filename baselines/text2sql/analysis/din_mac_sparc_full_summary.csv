@@ -1,0 +1,3 @@
+baseline,completed,last_idx,call_errors,executable,empty_sql,sql_errors,ex,mean_latency_s,total_tokens,target_n,progress,executable_rate,ex_rate_completed
+DIN-SQL,1203,1202,0,1164,0,39,434,8.978655860349127,11422485,1203,1.0,0.9675810473815462,0.36076475477971737
+MAC-SQL,1203,1202,0,1199,0,4,450,,0,1203,1.0,0.9966749792186201,0.3740648379052369

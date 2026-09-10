@@ -1,0 +1,55 @@
+{
+  "n_cases": 1203,
+  "db_root": "datasets/text2sql/sparc/sparc/database",
+  "metric_note": "projection la chan doan, khong phai metric bao cao",
+  "per_framework": {
+    "04_din_sql": {
+      "reported_wrong": 515,
+      "genuinely_wrong": 410,
+      "reported_ok": 688,
+      "rescued_projection": 71,
+      "rescued_colperm": 20,
+      "not_executable": 14,
+      "EX_reported": 0.5719,
+      "EX_if_colperm": 0.5885,
+      "EX_if_projection": 0.6475,
+      "share_of_failures_rescued": 0.1767
+    },
+    "06_mac_sql": {
+      "reported_wrong": 491,
+      "genuinely_wrong": 379,
+      "reported_ok": 712,
+      "rescued_projection": 84,
+      "rescued_colperm": 25,
+      "not_executable": 3,
+      "EX_reported": 0.5919,
+      "EX_if_colperm": 0.6126,
+      "EX_if_projection": 0.6825,
+      "share_of_failures_rescued": 0.222
+    },
+    "20_c3sql": {
+      "reported_wrong": 491,
+      "genuinely_wrong": 391,
+      "reported_ok": 712,
+      "not_executable": 40,
+      "rescued_projection": 34,
+      "rescued_colperm": 26,
+      "EX_reported": 0.5919,
+      "EX_if_colperm": 0.6135,
+      "EX_if_projection": 0.6417,
+      "share_of_failures_rescued": 0.1222
+    },
+    "21_dail_sql": {
+      "reported_ok": 728,
+      "reported_wrong": 475,
+      "genuinely_wrong": 346,
+      "not_executable": 61,
+      "rescued_projection": 47,
+      "rescued_colperm": 21,
+      "EX_reported": 0.6052,
+      "EX_if_colperm": 0.6226,
+      "EX_if_projection": 0.6617,
+      "share_of_failures_rescued": 0.1432
+    }
+  }
+}

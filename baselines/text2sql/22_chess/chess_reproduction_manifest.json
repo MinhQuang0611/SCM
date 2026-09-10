@@ -1,0 +1,94 @@
+{
+  "baseline": "22_chess",
+  "paper": {
+    "arxiv_id": "2405.16755",
+    "title": "CHESS: Contextual Harnessing for Efficient SQL Synthesis",
+    "version_checked": "v3",
+    "last_revised": "2024-11-25"
+  },
+  "source": {
+    "url": "https://github.com/ShayanTalaei/CHESS",
+    "local_path": "baselines/text2sql/22_chess/code/CHESS",
+    "commit_hash": "3d6e835f858d26885d21d4bc0215aeecf855efbe"
+  },
+  "reproduction_targets": [
+    {
+      "name": "SDS pilot",
+      "dataset": "BIRD dev sub-sampled set",
+      "n": 147,
+      "config": "IR_SS_CG",
+      "paper_reference_ex": 0.6462,
+      "status": "CONFIGURED_NOT_RUN"
+    },
+    {
+      "name": "high-compute BIRD dev",
+      "dataset": "BIRD dev",
+      "config": "IR_CG_UT",
+      "paper_reference_ex": 0.6831,
+      "status": "GATED_AFTER_SDS_PILOT"
+    },
+    {
+      "name": "high-compute BIRD test",
+      "dataset": "BIRD test",
+      "config": "IR_CG_UT",
+      "paper_reference_ex": 0.711,
+      "status": "GATED_AFTER_SDS_PILOT"
+    }
+  ],
+  "current_status": "PREFLIGHT_PASS_ONE_DB_PREPROCESS_PASS",
+  "environment": {
+    "conda_env": "chess",
+    "python": "3.11.15",
+    "requirements": "installed"
+  },
+  "data": {
+    "central_bird_path": "datasets/text2sql/bird",
+    "chess_dev_databases": "baselines/text2sql/22_chess/code/CHESS/data/dev/dev_databases -> datasets/text2sql/bird/dev_databases",
+    "chess_dev_tables": "baselines/text2sql/22_chess/code/CHESS/data/dev/dev_tables.json -> datasets/text2sql/bird/dev_tables.json",
+    "sds_dev_json": "baselines/text2sql/22_chess/code/CHESS/data/dev/dev.json"
+  },
+  "smoke_checks": [
+    {
+      "name": "preflight",
+      "status": "PASS",
+      "manifest": "baselines/text2sql/22_chess/results/preflight/run_manifest.json"
+    },
+    {
+      "name": "preprocess_one_db",
+      "db_id": "california_schools",
+      "status": "PASS",
+      "artifacts": [
+        "datasets/text2sql/bird/dev_databases/california_schools/preprocessed/california_schools_lsh.pkl",
+        "datasets/text2sql/bird/dev_databases/california_schools/preprocessed/california_schools_minhashes.pkl",
+        "datasets/text2sql/bird/dev_databases/california_schools/preprocessed/california_schools_unique_values.pkl",
+        "datasets/text2sql/bird/dev_databases/california_schools/context_vector_db/chroma.sqlite3"
+      ],
+      "notes": [
+        "OpenAI embeddings request returned HTTP 200 during context vector DB creation.",
+        "Chroma telemetry emitted non-blocking capture() warnings."
+      ]
+    },
+    {
+      "name": "ir_ss_cg_one_case_smoke",
+      "dataset": "smoke_california_schools_n1",
+      "config": "IR_SS_CG",
+      "status": "PASS_WITH_WARNINGS",
+      "output_dir": "baselines/text2sql/22_chess/code/CHESS/results/dev/CHESS_IR_SS_CG/smoke_california_schools_n1/2026-08-04T11:08:17.212440",
+      "statistics": {
+        "correct": 1,
+        "incorrect": 0,
+        "error": 0,
+        "total": 1
+      },
+      "warnings": [
+        "Chroma telemetry emitted non-blocking capture() warnings.",
+        "Candidate Generator checker reported max_workers must be greater than 0, but the pipeline completed and final_SQL was marked correct."
+      ]
+    }
+  ],
+  "notes": [
+    "BIRD dev data has been centralized under datasets/text2sql/bird and linked into CHESS and MAC-SQL.",
+    "The official README mentions run_main_ir_ss_ch.sh, while the repository contains run_main_ir_ss_cg.sh.",
+    "Do not mix adapted smoke results with official paper reproduction results."
+  ]
+}

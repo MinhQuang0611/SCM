@@ -1,0 +1,398 @@
+stratum,case_idx,db_id,question,gold_sql,n_correct,pred_agreement,gold_error_type,gold_error_note,annotator
+A_all_wrong_agree,153,world_1,What are the countries in the Carribean region?,"SELECT * FROM country WHERE Region  =  ""Caribbean""",0,4/4,,,
+A_all_wrong_agree,177,world_1,What are the countries in the continents of Asia or Europe?,"SELECT * FROM country WHERE Continent  =  ""Asia"" OR Continent  =  ""Europe""",0,4/4,,,
+A_all_wrong_agree,212,world_1,"Conversation so far:
+1. What are the official languages for each country?
+
+Current question:
+Which of these countries have English or Dutch?","SELECT * FROM country AS T1 JOIN countrylanguage AS T2 ON T1.Code  =  T2.CountryCode WHERE T2.Language  =  ""English"" AND IsOfficial  =  ""T"" UNION SELECT * FROM country AS T1 JOIN countrylanguage AS T2 ON T1.Code  =  T2.CountryCode WHERE T2.Language  =  ""Dutch"" AND IsOfficial  =  ""T""",0,3/4,,,
+A_all_wrong_agree,248,world_1,What are the countries in Asia where Chinese is spoken?,"SELECT * FROM country AS T1 JOIN countrylanguage AS T2 ON T1.Code  =  T2.CountryCode WHERE T2.Language  =  'Chinese' AND T1.Continent  =  ""Asia""",0,4/4,,,
+A_all_wrong_agree,253,world_1,What is the country with the largest surface area?,SELECT * FROM country ORDER BY SurfaceArea DESC LIMIT 1,0,4/4,,,
+A_all_wrong_agree,272,world_1,Which countries are in the continent of Europe?,"SELECT * FROM country WHERE continent  =  ""Europe""",0,4/4,,,
+A_all_wrong_agree,304,tvshow,"Conversation so far:
+1. tell me the weekly rank of the episode named ""Emily"".
+2. How about its share?
+
+Current question:
+tell me the minimum and maximum share of TV series.","SELECT max(SHARE) , min(SHARE) FROM TV_series",0,4/4,,,
+A_all_wrong_agree,318,tvshow,"Conversation so far:
+1. which countries' tv channels are playing some cartoon written by Steven Melching?
+
+Current question:
+which countries' tv channels are not playing any cartoon written by Todd Casey?",SELECT country FROM TV_Channel EXCEPT SELECT T1.country FROM TV_Channel AS T1 JOIN cartoon AS T2 ON T1.id = T2.Channel WHERE T2.written_by  =  'Todd Casey',0,4/4,,,
+A_all_wrong_agree,365,poker_player,Count the number of people for each nationality.,SELECT COUNT(*) FROM people GROUP BY Nationality,0,4/4,,,
+A_all_wrong_agree,441,car_1,Show all the car ids with the make amc hornet sporabout (sw)?,SELECT T1.ID FROM CARS_DATA AS T1 JOIN CAR_NAMES AS T2 ON T1.Id  =  T2.MakeId WHERE T2.Make  =  'amc hornet sportabout (sw)';,0,4/4,,,
+A_all_wrong_agree,442,car_1,"Conversation so far:
+1. Show all the car ids with the make amc hornet sporabout (sw)?
+
+Current question:
+What is its horsepower?",SELECT T1.Horsepower FROM CARS_DATA AS T1 JOIN CAR_NAMES AS T2 ON T1.Id  =  T2.MakeId WHERE T2.Make  =  'amc hornet sportabout (sw)';,0,4/4,,,
+A_all_wrong_agree,463,car_1,"Conversation so far:
+1. Show all the car makers and their country name?
+2. Count how many there are per country name?
+
+Current question:
+Show just those from countries in the continent Europe.","SELECT T1.CountryName, count(*) FROM COUNTRIES AS T1 JOIN CONTINENTS AS T2 ON T1.Continent  =  T2.ContId JOIN CAR_MAKERS AS T3 ON T1.CountryId  =  T3.Country WHERE T2.Continent  =  'europe' GROUP BY T1.CountryName;",0,3/4,,,
+A_all_wrong_agree,500,car_1,"Conversation so far:
+1. What is the lowest accelerate for any car?
+2. How about the highest?
+3. What is the ID, Make and Model of this car?
+
+Current question:
+Show just its horsepower.",SELECT horsepower FROM CARS_DATA ORDER BY accelerate DESC LIMIT 1;,0,4/4,,,
+A_all_wrong_agree,523,car_1,"Conversation so far:
+1. Show me the mpg, horsepower and accelerate for all the cars that were produced before 1980!
+2. Also include the cars that have 8 cylinders!
+
+Current question:
+What is the max horsepower for this group?",SELECT accelerate FROM CARS_DATA WHERE Cylinders  =  8 OR YEAR  <  1980 ORDER BY accelerate DESC LIMIT 1;,0,4/4,,,
+A_all_wrong_agree,553,wta_1,What is the birth date of the oldest player?,SELECT birth_date FROM players ORDER BY birth_date DESC LIMIT 1,0,4/4,,,
+A_all_wrong_agree,587,wta_1,"Conversation so far:
+1. What is the number of players for each hand type? Give the hand type as well.
+2. For each country?
+
+Current question:
+Give the ones that have more than 50 players.","SELECT count(*), country_code FROM players GROUP BY country_code HAVING count(*) > 50",0,3/4,,,
+A_all_wrong_agree,590,wta_1,"Conversation so far:
+1. Give the name of the 3 oldest losers across all matches.
+
+Current question:
+How about the 3 oldest winners.",SELECT DISTINCT winner_name FROM matches ORDER BY winner_age DESC LIMIT 3,0,3/4,,,
+A_all_wrong_agree,610,orchestra,List the nationalities of conductors.,SELECT Nationality FROM conductor,0,4/4,,,
+A_all_wrong_agree,634,orchestra,Please list the record companies.,SELECT Record_Company FROM orchestra,0,4/4,,,
+A_all_wrong_agree,662,cre_Doc_Template_Mgt,"Conversation so far:
+1. Show the template id for all Documents.
+2. Also show its template type code.
+3. For each of them, show the number of documents using it.
+
+Current question:
+Which one has the most?","SELECT T1.template_id ,  T2.Template_Type_Code FROM Documents AS T1 JOIN Templates AS T2 ON T1.template_id  =  T2.template_id GROUP BY T1.template_id ORDER BY count(*) DESC LIMIT 1",0,3/4,,,
+A_all_wrong_agree,716,cre_Doc_Template_Mgt,Show the template ids used by any document.,select Template_ID from Documents,0,4/4,,,
+A_all_wrong_agree,829,singer,Show the names and song counts of singers.,"SELECT T1.Name, COUNT(*) FROM singer AS T1 JOIN song AS T2 ON T1.Singer_ID  =  T2.Singer_ID GROUP BY T1.Name",0,4/4,,,
+A_all_wrong_agree,849,employee_hire_evaluation,"Conversation so far:
+1. how many evaluations are there?
+
+Current question:
+what years were they given?",SELECT Year_awarded FROM evaluation,0,4/4,,,
+A_all_wrong_agree,877,museum_visit,"Conversation so far:
+1. find the names of museums opened before 2010.
+2. how about after?
+
+Current question:
+find the minimum number of staff of those museums.",SELECT min(num_of_staff) FROM museum WHERE open_year  >  2010,0,4/4,,,
+A_all_wrong_agree,886,museum_visit,"Conversation so far:
+1. show the id and name of all museums.
+
+Current question:
+show the number of tickets sold for each of them.","SELECT t2.Museum_ID ,  t1.name, count(*) FROM museum AS t1 JOIN visit AS t2 ON t1.Museum_ID  =  t2.Museum_ID GROUP BY t2.Museum_ID",0,3/4,,,
+A_all_wrong_agree,981,course_teach,"Conversation so far:
+1. What is the hometown of each teacher?
+2. Which teacher's hometown is not ""Little Lever Urban District""?
+
+Current question:
+Give me their names.","SELECT Name FROM teacher WHERE Hometown != ""Little Lever Urban Distric""",0,4/4,,,
+A_all_wrong_agree,996,course_teach,"Conversation so far:
+1. How many teachers are there?
+
+Current question:
+How many teachers are there for each hometown?",SELECT COUNT(*) FROM teacher GROUP BY Hometown,0,4/4,,,
+A_all_wrong_agree,1058,voter_1,"Conversation so far:
+1. Show all votes.
+
+Current question:
+Show those that were for the contestant named 'Tabatha Gehling'.",SELECT * FROM contestants AS T1 JOIN votes AS T2 ON T1.contestant_number  =  T2.contestant_number WHERE T1.contestant_name  =  'Tabatha Gehling',0,3/4,,,
+A_all_wrong_agree,1063,student_transcripts_tracking,Give me the description of the department that offers the most number of degrees.,"SELECT T2.department_description ,  T1.department_id FROM Degree_Programs AS T1 JOIN Departments AS T2 ON T1.department_id  =  T2.department_id GROUP BY T1.department_id ORDER BY count(*) DESC LIMIT 1",0,3/4,,,
+A_all_wrong_agree,1129,dog_kennels,"Conversation so far:
+1. Show the dog name and total cost of each dog.
+2. Which of them cost over 500?
+
+Current question:
+What about more than 1000?",SELECT name FROM Dogs WHERE dog_id NOT IN( SELECT dog_id FROM Treatments GROUP BY dog_id HAVING sum(cost_of_treatment)  >  1000 ),0,4/4,,,
+B_all_wrong_diverge,82,flight_2,"Conversation so far:
+1. What are all the flight numbers?
+
+Current question:
+Of these, which are departure flights?",SELECT T1.FlightNo FROM FLIGHTS AS T1 JOIN AIRPORTS AS T2 ON T1.SourceAirport   =  T2.AirportCode,0,2/4,,,
+B_all_wrong_diverge,104,pets_1,"Conversation so far:
+1. Who are the female students?
+
+Current question:
+Of those, who has a pet?",SELECT * FROM student AS T1 JOIN has_pet AS T2 ON T1.stuid  =  T2.stuid WHERE T1.sex  =  'F',0,2/4,,,
+B_all_wrong_diverge,183,world_1,"Conversation so far:
+1. What are all the nations?
+
+Current question:
+Which of those have a government that is a US territory?","SELECT * FROM country WHERE GovernmentForm  =  ""US Territory""",0,2/4,,,
+B_all_wrong_diverge,215,world_1,Which countries have republics as their form of government?,"SELECT * FROM country WHERE GovernmentForm  =  ""Republic""",0,2/4,,,
+B_all_wrong_diverge,260,world_1,The countries with which government form have an average life expectancy greater than age 72?,SELECT * FROM country GROUP BY GovernmentForm HAVING avg(LifeExpectancy)  >  72,0,2/4,,,
+B_all_wrong_diverge,339,poker_player,"Conversation so far:
+1. What is the money rank of each poker player?
+2. Sort them in the decreasing order.
+
+Current question:
+Return the top one.",SELECT Money_Rank FROM poker_player ORDER BY Earnings DESC LIMIT 1,0,2/4,,,
+B_all_wrong_diverge,355,poker_player,"Conversation so far:
+1. What is the height of each poker player?
+
+Current question:
+Who all have heights greater than 200?",SELECT * FROM people AS T1 JOIN poker_player AS T2 ON T1.People_ID  =  T2.People_ID WHERE T1.Height  >  200,0,2/4,,,
+B_all_wrong_diverge,407,car_1,"Conversation so far:
+1. What are the names and ids of the different car makers?
+
+Current question:
+What countries are they each from?","Select Country, FullName, ID From CAR_MAKERS;",0,1/4,,,
+B_all_wrong_diverge,419,car_1,"Conversation so far:
+1. What are the ids, and models of the cars were made in 1970?
+
+Current question:
+Show their horsepower and MPG as well?","Select T1.horsepower, T1.mpg, T1.id, T2.model from cars_data as T1 join car_names as T2 on T1.id = T2.MakeId where T1.year = '1970';",0,1/4,,,
+B_all_wrong_diverge,431,car_1,"Conversation so far:
+1. What are the names and country name of each car maker?
+
+Current question:
+Also provide the continent name for each!","SELECT T1.Continent,  T3.Maker, T2.CountryName FROM CONTINENTS AS T1 JOIN COUNTRIES AS T2 ON T1.ContId  =  T2.continent JOIN car_makers AS T3 ON T2.CountryId  =  T3.Country;",0,2/4,,,
+B_all_wrong_diverge,460,car_1,"Conversation so far:
+1. What are all the different country names?
+2. Which ones have no car makers?
+3. Which ones have at least one?
+
+Current question:
+Also provide the country id!","SELECT T1.CountryName ,  T1.CountryId FROM COUNTRIES AS T1 JOIN CAR_MAKERS AS T2 ON T1.CountryId  =  T2.Country GROUP BY T1.CountryId HAVING count(*)  >=  1;",0,2/4,,,
+B_all_wrong_diverge,532,car_1,"Show all the car maker id, names, the models and makes they produce!","SELECT T1.Id ,  T1.Maker, T2.Model FROM CAR_MAKERS AS T1 JOIN MODEL_LIST AS T2 ON T1.Id  =  T2.Maker;",0,2/4,,,
+B_all_wrong_diverge,562,wta_1,"Conversation so far:
+1. How many players are there?
+2. How many tours did the player who did the least number of tours do?
+
+Current question:
+Most number of tours?",SELECT T2.tours FROM players AS T1 JOIN rankings AS T2 ON T1.player_id  =  T2.player_id ORDER BY T2.tours DESC LIMIT 1,0,2/4,,,
+B_all_wrong_diverge,577,wta_1,"Conversation so far:
+1. Find the birth dates of each of the players.
+
+Current question:
+Find tours and first name instead.","SELECT T2.tours, T1.first_name FROM players AS T1 JOIN rankings AS T2 ON T1.player_id  =  T2.player_id GROUP BY T1.first_name",0,1/4,,,
+B_all_wrong_diverge,578,wta_1,"Conversation so far:
+1. Find the birth dates of each of the players.
+2. Find tours and first name instead.
+
+Current question:
+Give the average ranking instead of the tours.","SELECT avg(ranking) ,  T1.first_name FROM players AS T1 JOIN rankings AS T2 ON T1.player_id  =  T2.player_id GROUP BY T1.first_name",0,1/4,,,
+B_all_wrong_diverge,581,wta_1,"Conversation so far:
+1. Give the number of tours for each player.
+2. Give the average rank points and first name.
+
+Current question:
+Find the total ranking points instead.","SELECT sum(ranking_points) ,  T1.first_name FROM players AS T1 JOIN rankings AS T2 ON T1.player_id  =  T2.player_id GROUP BY T1.first_name",0,2/4,,,
+B_all_wrong_diverge,731,cre_Doc_Template_Mgt,"Conversation so far:
+1. Show the parapraph text for all paragraphs.
+2. Also show their paragraph details.
+
+Current question:
+What are the details for the paragraph containing 'Korea'?",SELECT Other_Details FROM Paragraphs WHERE paragraph_text  =  'Korea',0,1/4,,,
+B_all_wrong_diverge,920,network_1,"Conversation so far:
+1. What are the names of all the high school students?
+2. Show the names of the friends for each one.
+
+Current question:
+How many friends does each student each have?","SELECT T2.name, count(*) FROM Friend AS T1 JOIN Highschooler AS T2 ON T1.student_id  =  T2.id GROUP BY T1.student_id",0,2/4,,,
+B_all_wrong_diverge,999,course_teach,"Conversation so far:
+1. Find all the course arrangements.
+
+Current question:
+For each of the courses, show the teacher who teaches it.","SELECT T3.Name ,  T2.Course FROM course_arrange AS T1 JOIN course AS T2 ON T1.Course_ID  =  T2.Course_ID JOIN teacher AS T3 ON T1.Teacher_ID  =  T3.Teacher_ID",0,2/4,,,
+B_all_wrong_diverge,1015,real_estate_properties,What is the property type description of each property?,SELECT T2.property_type_description FROM Properties AS T1 JOIN Ref_Property_Types AS T2 ON T1.property_type_code  =  T2.property_type_code,0,1/4,,,
+B_all_wrong_diverge,1107,student_transcripts_tracking,"How many times, at minimum, can a course enrollment result show in different transcript? Show me the course enrollment id.","SELECT count(*) ,  student_course_id FROM Transcript_Contents GROUP BY student_course_id ORDER BY count(*) ASC LIMIT 1",0,2/4,,,
+B_all_wrong_diverge,1148,dog_kennels,"Conversation so far:
+1. Show the dog name and total cost of each dog.
+
+Current question:
+What are the owner names and the cost from their dogs.","SELECT T1.owner_id, T3.cost_of_treatment  FROM Owners AS T1 JOIN Dogs AS T2 ON T1.owner_id  =  T2.owner_id JOIN Treatments AS T3 ON T2.dog_id  =  T3.dog_id GROUP BY T1.owner_id",0,2/4,,,
+B_all_wrong_diverge,1149,dog_kennels,"Conversation so far:
+1. Show the dog name and total cost of each dog.
+2. What are the owner names and the cost from their dogs.
+
+Current question:
+Who has paid for the most treatments on the dogs? Keep owner IDs and last names.","SELECT T1.owner_id ,  T1.last_name FROM Owners AS T1 JOIN Dogs AS T2 ON T1.owner_id  =  T2.owner_id JOIN Treatments AS T3 ON T2.dog_id  =  T3.dog_id GROUP BY T1.owner_id ORDER BY count(*) DESC LIMIT 1",0,1/4,,,
+B_all_wrong_diverge,1169,dog_kennels,"Conversation so far:
+1. How many dogs for each breed code?
+2. Which one is the most popular one?
+3. What about the least popular one?
+
+Current question:
+So which dogs are having the breed code? And the treatment dates?","SELECT T1.name ,  T2.date_of_treatment FROM Dogs AS T1 JOIN Treatments AS T2 ON T1.dog_id  =  T2.dog_id WHERE T1.breed_code  =  ( SELECT breed_code FROM Dogs GROUP BY breed_code ORDER BY count(*) ASC LIMIT 1 )",0,1/4,,,
+B_all_wrong_diverge,1194,dog_kennels,"Conversation so far:
+1. Show all the owner information.
+
+Current question:
+What about the dogs?",SELECT count(*) FROM Dogs,0,2/4,,,
+C_mixed,0,flight_2,What are all the airlines?,SELECT * FROM AIRLINES,1,3/4,,,
+C_mixed,54,flight_2,"Conversation so far:
+1. What are airport codes of any airport with a arriving flight?
+2. Also include codes of airports with departure flights.
+
+Current question:
+Which one has the highest number of flights?",SELECT T1.AirportCode FROM AIRPORTS AS T1 JOIN FLIGHTS AS T2 ON T1.AirportCode  =  T2.DestAirport OR T1.AirportCode  =  T2.SourceAirport GROUP BY T1.AirportCode ORDER BY count(*) DESC LIMIT 1,1,2/4,,,
+C_mixed,135,pets_1,"Conversation so far:
+1. Which students have pets?
+
+Current question:
+What are the different first names?",SELECT DISTINCT T1.fname FROM student AS T1 JOIN has_pet AS T2 ON T1.stuid  =  T2.stuid,2,2/4,,,
+C_mixed,189,world_1,What is the information about the country Aruba?,"SELECT * FROM country WHERE Name  =  ""Aruba""",3,3/4,,,
+C_mixed,214,world_1,"Conversation so far:
+1. What are all the different languages used in the continent of Asia?
+
+Current question:
+Which one is used by the largest number of Asian countries?","SELECT T2.Language FROM country AS T1 JOIN countrylanguage AS T2 ON T1.Code  =  T2.CountryCode WHERE T1.Continent  =  ""Asia"" GROUP BY T2.Language ORDER BY COUNT (*) DESC LIMIT 1",3,3/4,,,
+C_mixed,225,world_1,"Conversation so far:
+1. What are the names of each country that does not speak English?
+
+Current question:
+How many people live in those countries?","SELECT sum(Population) FROM country WHERE Name NOT IN (SELECT T1.Name FROM country AS T1 JOIN countrylanguage AS T2 ON T1.Code  =  T2.CountryCode WHERE T2.Language  =  ""English"")",2,2/4,,,
+C_mixed,227,world_1,"Conversation so far:
+1. Which country has a head of state named Beatrix?
+
+Current question:
+What languages are spoken in that country?","SELECT T2.Language FROM country AS T1 JOIN countrylanguage AS T2 ON T1.Code  =  T2.CountryCode WHERE T1.HeadOfState  =  ""Beatrix""",2,2/4,,,
+C_mixed,364,poker_player,"Conversation so far:
+1. Show the nationality of each person.
+2. Count the number of people for each nationality.
+
+Current question:
+What is the most common nationality of people?",SELECT Nationality FROM people GROUP BY Nationality ORDER BY COUNT(*) DESC LIMIT 1,3,3/4,,,
+C_mixed,421,car_1,"Conversation so far:
+1. What are the ids, and models of the cars were made in 1970?
+2. Show their horsepower and MPG as well?
+3. Also provide the names of their makers!
+
+Current question:
+Just show a unique list of all these different makers.",SELECT DISTINCT T1.Maker FROM CAR_MAKERS AS T1 JOIN MODEL_LIST AS T2 ON T1.Id  =  T2.Maker JOIN CAR_NAMES AS T3 ON T2.model  =  T3.model JOIN CARS_DATA AS T4 ON T3.MakeId  =  T4.id WHERE T4.year  =  '1970';,1,1/4,,,
+C_mixed,512,car_1,"Conversation so far:
+1. What are the names of the countries that have no car makers?
+2. Show me all the names of all the different countries outside of those!
+3. How many of these have more than 1 car maker?
+
+Current question:
+How about more than 2?","SELECT COUNT(*) FROM ( SELECT T1.CountryId ,  COUNT(*) FROM COUNTRIES AS T1 JOIN CAR_MAKERS AS T2 ON T1.CountryId  =  T2.Country GROUP BY T1.CountryId HAVING count(*)  >  2 );",1,1/4,,,
+C_mixed,726,cre_Doc_Template_Mgt,"Conversation so far:
+1. Show the id for all paragraphs.
+
+Current question:
+Also show their document names.","SELECT T1.paragraph_id, T2.document_name FROM Paragraphs AS T1 JOIN Documents AS T2 ON T1.document_ID  =  T2.document_ID",3,3/4,,,
+C_mixed,738,cre_Doc_Template_Mgt,Show the document id for all paragraphs.,SELECT document_id FROM Paragraphs,2,2/4,,,
+C_mixed,773,concert_singer,"Conversation so far:
+1. Show the country for all singers.
+
+Current question:
+For each of them, what is the number of singers?","SELECT country ,  count(*) FROM singer GROUP BY country",3,3/4,,,
+C_mixed,841,employee_hire_evaluation,"Conversation so far:
+1. show all shops.
+2. what is the total number of products they are selling?
+3. find the name of the shop with the greatest number of products.
+
+Current question:
+what are its manager name and district?","SELECT manager_name ,  district FROM shop ORDER BY number_products DESC LIMIT 1",3,3/4,,,
+C_mixed,926,network_1,"Conversation so far:
+1. How many highschoolers have more than 5?
+
+Current question:
+at least 3?",SELECT count(*) FROM (SELECT * FROM Friend AS T1 JOIN Highschooler AS T2 ON T1.student_id  =  T2.id GROUP BY T1.student_id HAVING count(*)  >= 3),2,2/4,,,
+C_mixed,950,network_1,"Conversation so far:
+1. How many high schoolers are liked by someone else?
+2. What are their names?
+3. How many of them have friends?
+
+Current question:
+Who are they?",SELECT T2.name FROM Friend AS T1 JOIN Highschooler AS T2 ON T1.student_id  =  T2.id INTERSECT SELECT T2.name FROM Likes AS T1 JOIN Highschooler AS T2 ON T1.liked_id  =  T2.id,2,2/4,,,
+C_mixed,961,network_1,What are the names of the students who have some friends?,SELECT T2.name FROM Friend AS T1 JOIN Highschooler AS T2 ON T1.student_id  =  T2.id GROUP BY T1.student_id,1,3/4,,,
+C_mixed,1000,course_teach,Find all the course arrangements.,SELECT * FROM course_arrange,2,2/4,,,
+C_mixed,1029,voter_1,"Conversation so far:
+1. Show all area codes.
+2. What is the largest one?
+3. How about smallest one?
+
+Current question:
+Give me both.","SELECT max(area_code) ,  min(area_code) FROM area_code_state",2,2/4,,,
+C_mixed,1131,dog_kennels,"Conversation so far:
+1. List all the names of both Professionals and Owners.
+
+Current question:
+What about the dog names?",SELECT name FROM Dogs,3,3/4,,,
+D_all_correct,15,flight_2,What are all the airline names?,SELECT Airline FROM AIRLINES,4,4/4,,,
+D_all_correct,20,flight_2,"Conversation so far:
+1. What are the city and country for all airports?
+
+Current question:
+Of these, what are the city and country for Alton airport?","SELECT City ,  Country FROM AIRPORTS WHERE AirportName  =  ""Alton""",4,4/4,,,
+D_all_correct,30,flight_2,"Conversation so far:
+1. What are all the flights derparting from Aberdeen?
+
+Current question:
+How many are there?","SELECT count(*) FROM FLIGHTS AS T1 JOIN AIRPORTS AS T2 ON T1.SourceAirport  =  T2.AirportCode WHERE T2.City  =  ""Aberdeen""",4,4/4,,,
+D_all_correct,31,flight_2,What are all the flights arriving in Aberdeen.,"SELECT * FROM FLIGHTS AS T1 JOIN AIRPORTS AS T2 ON T1.DestAirport  =  T2.AirportCode WHERE T2.City  =  ""Aberdeen""",4,4/4,,,
+D_all_correct,83,flight_2,"Conversation so far:
+1. What are all the flight numbers?
+2. Of these, which are departure flights?
+
+Current question:
+Which leave from Aberdeen?","SELECT T1.FlightNo FROM FLIGHTS AS T1 JOIN AIRPORTS AS T2 ON T1.SourceAirport   =  T2.AirportCode WHERE T2.City  =  ""Aberdeen""",4,4/4,,,
+D_all_correct,107,pets_1,"Conversation so far:
+1. What are the different pet types?
+
+Current question:
+How many exist?",SELECT count(DISTINCT pettype) FROM pets,4,4/4,,,
+D_all_correct,166,world_1,"Conversation so far:
+1. Which region is Angola in?
+
+Current question:
+For that country, what is its population?","SELECT Population FROM country WHERE Name  =  ""Angola""",4,4/4,,,
+D_all_correct,213,world_1,What are all the different languages used in the continent of Asia?,"SELECT DISTINCT T2.Language FROM country AS T1 JOIN countrylanguage AS T2 ON T1.Code  =  T2.CountryCode WHERE T1.Continent  =  ""Asia""",4,4/4,,,
+D_all_correct,299,tvshow,"Tell me the rating of the episode named ""Double Down"".","SELECT Rating FROM TV_series WHERE Episode = ""Double Down""",4,4/4,,,
+D_all_correct,396,battle_death,List the name and date of the battle that has lost the ship named 'Lettice',"SELECT T1.name ,  T1.date FROM battle AS T1 JOIN ship AS T2 ON T1.id  =  T2.lost_in_battle WHERE T2.name  =  'Lettice'",4,4/4,,,
+D_all_correct,433,car_1,How many countries are there?,SELECT count(*) from Countries;,4,4/4,,,
+D_all_correct,467,car_1,"Conversation so far:
+1. What is the horsepower, make for each car!
+2. Show those with 8 cylinders!
+
+Current question:
+How about 3?","SELECT T2.horsepower ,  T1.Make FROM CAR_NAMES AS T1 JOIN CARS_DATA AS T2 ON T1.MakeId  =  T2.Id WHERE T2.cylinders  =  3;",4,4/4,,,
+D_all_correct,517,car_1,What is the lowest horsepower of all cars?,SELECT min(Horsepower) FROM CARS_DATA;,4,4/4,,,
+D_all_correct,537,wta_1,"Conversation so far:
+1. How many matches are there?
+
+Current question:
+What was the maximum length in minutes for the matches?",SELECT max(minutes) FROM matches,4,4/4,,,
+D_all_correct,688,cre_Doc_Template_Mgt,"Conversation so far:
+1. Show all template type codes.
+
+Current question:
+For each of them, show the count of templates.","SELECT template_type_code, count(*) FROM Templates GROUP BY template_type_code",4,4/4,,,
+D_all_correct,751,cre_Doc_Template_Mgt,"Conversation so far:
+1. Show the document id for all paragraphs.
+
+Current question:
+For each of them, count the number of paragraphs.","SELECT document_id , count(*) FROM Paragraphs GROUP BY document_id",4,4/4,,,
+D_all_correct,790,concert_singer,Show all stadium names and their capacities.,"SELECT name ,  capacity FROM stadium",4,4/4,,,
+D_all_correct,808,concert_singer,List all singer names.,select name from singer,4,4/4,,,
+D_all_correct,813,concert_singer,Show the name and location for the stadiums.,"SELECT name ,  location FROM stadium",4,4/4,,,
+D_all_correct,842,employee_hire_evaluation,find the average number of products of all stores.,SELECT avg(Number_products) FROM shop,4,4/4,,,
+D_all_correct,966,network_1,"Conversation so far:
+1. What grade is the student named Kyle in?
+
+Current question:
+How many other students like him?","SELECT count(*) FROM Likes AS T1 JOIN Highschooler AS T2 ON T1.liked_id  =  T2.id WHERE T2.name  =  ""Kyle""",4,4/4,,,
+D_all_correct,986,course_teach,Sort all the teachers by their age.,SELECT * FROM teacher ORDER BY Age,4,4/4,,,
+D_all_correct,1010,course_teach,"Conversation so far:
+1. Show all the teacher names.
+2. Show names of teachers and the number of courses they teach.
+
+Current question:
+Show the names of teachers who teach at least two courses.",SELECT T2.Name FROM course_arrange AS T1 JOIN teacher AS T2 ON T1.Teacher_ID  =  T2.Teacher_ID GROUP BY T2.Name HAVING COUNT(*)  >=  2,4,4/4,,,
+D_all_correct,1080,student_transcripts_tracking,"Conversation so far:
+1. What is the description of the program that has the least number of enrolled students?
+
+Current question:
+How about the program that has the most number of enrolled students?",SELECT T1.degree_summary_description FROM Degree_Programs AS T1 JOIN Student_Enrolment AS T2 ON T1.degree_program_id  =  T2.degree_program_id GROUP BY T1.degree_program_id ORDER BY count(*) DESC LIMIT 1,4,4/4,,,
+D_all_correct,1123,dog_kennels,"Conversation so far:
+1. List all the professionals who are Employees.
+
+Current question:
+How many of them live in Connecticut?",SELECT count(*) FROM Professionals WHERE state  =  'Connecticut',4,4/4,,,
